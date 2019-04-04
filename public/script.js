@@ -1,16 +1,27 @@
-var convertBtn = document.querySelector('.convert-button');
-var URLinput = document.querySelector('.URL-input');
-convertBtn.addEventListener('click', () => {
+const fetchInfos = () => {
+    let url = "http://localhost:4000/test";
+    fetch(url).then(response => response.json())
+        .then((result) => {
+            console.log("success: ", result)
+            let div = document.getElementById("video-info");
+            div.innerHTML = `${result.info}`;
+        })
+        .catch(error => console.log("error:", error));
+};
+const convertBtn = document.querySelector(".convert-button");
+const URLinput = document.querySelector(".URL-input");
+convertBtn.addEventListener("click", () => {
     sendURL(URLinput.value);
 });
-function sendURL(URL) {
+fetchInfos();
+const sendURL = (URL) => {
     window.location.href = `http://localhost:4000/download?URL=${URL}`;
-}
-let url = "http://localhost:4000/test";
-fetch(url).then(response => response.json())
-    .then((result) => {
-        console.log('success:', result)
-        let div = document.getElementById('test');
-        div.innerHTML = `title: ${result.title}<br/>message: ${result.message}`;
-    })
-    .catch(error => console.log('error:', error));
+};
+const sendMetaURL = (URL) => {
+    window.location.href = `http://localhost:4000/meta?URL=${URL}`;
+};
+const metaBtn = document.querySelector(".meta-button");
+const METAinput = document.querySelector(".META-input");
+metaBtn.addEventListener("click", () => {
+    sendMetaURL(METAinput.value);
+});
