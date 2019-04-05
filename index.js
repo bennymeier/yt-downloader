@@ -5,10 +5,9 @@ const app = express();
 const port = process.env.PORT || 4000;
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
-app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.json());
 app.listen(port, () => {
-    console.log("Server is running...");
+    console.log(`Server is running on port ${port}`);
 });
 // serve the homepage
 app.get('/', (req, res) => {
@@ -17,7 +16,6 @@ app.get('/', (req, res) => {
 
 // get the meta info from youtube
 app.post('/metainfo', async (req, res) => {
-    console.log("req: ", req.body);
     const videoURL = req.body.videoURL;
     if (!videoURL) throw new Error("No video url!");
     try {
@@ -32,7 +30,6 @@ app.get("/download", async (req, res) => {
     let videoURL = req.query.URL;
     let info;
     let title;
-    console.log("URL: ", videoURL);
     try {
         info = await promiseInfo(videoURL);
         title = info.title.replace(/[^a-zA-Z0-9-äöü ]/g, " ");
@@ -54,4 +51,3 @@ const promiseInfo = (videoURL) => {
         });
     });
 }
-// // start the server

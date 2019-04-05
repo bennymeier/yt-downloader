@@ -21,8 +21,12 @@ const fetchMetaInfo = (videoURL) => {
             if (response.ok) return response.json();
             throw new Error("Request failed.");
         })
-        .then((data) => {
-            console.log("data: ", data);
+        .then((metainfo) => {
+            const metaTitle = document.getElementById("meta-title");
+            metaTitle.innerHTML = metainfo.title;
+            const metaThumbnail = document.getElementById("meta-thumbnail");
+            metaThumbnail.src = metainfo.thumbnail_url;
+            console.log("data: ", metainfo);
         })
         .catch((error) => {
             console.log(error);
