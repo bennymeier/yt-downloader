@@ -8,15 +8,19 @@
 
 <body>
     <h1>YouTube Downloader</h1>
-    <input class="URL-input" value="" type="text"
-        placeholder="Video URL e.g. https://www.youtube.com/watch?v=MtN1YnoL46Q">
+    <label for="download">Download</label>
+    <input class="URL-input" value="" name="download" type="text" placeholder="Video URL">
     <button class="convert-button">Convert</button>
     <br>
     <br>
-    <input class="META-input" value="" type="text" placeholder="Get meta info">
+    <label for="metainfo">Meta Info</label>
+    <input id="meta-input" class="META-input" value="" name="metainfo" type="text" placeholder="Get meta info">
     <button class="meta-button">Get meta info</button>
 
-    <div id="video-info"></div>
+    <p id="video-info"></p>
+    <h1>Node + Express + MongoDb example</h1>
+    <p id="counter">Loading button click data.</p>
+    <button id="myButton">Click me!</button>
     <script src="script.js"></script>
 </body>
 

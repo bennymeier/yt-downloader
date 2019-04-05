@@ -2,19 +2,27 @@ const express = require('express');
 const cors = require('cors');
 const ytdl = require('ytdl-core');
 const app = express();
+const port = process.env.PORT || 4000;
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
-app.listen(4000, () => {
+app.use(express.json()); // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+app.listen(port, () => {
     console.log("Server is running...");
 });
+// serve the homepage
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+});
 
-app.get("/meta", async (req, res) => {
-    let videoURL = req.query.URL;
+// get the meta info from youtube
+app.post('/metainfo', async (req, res) => {
+    console.log("req: ", req.body);
+    const videoURL = req.body.videoURL;
+    if (!videoURL) throw new Error("No video url!");
     try {
-        let info = await promiseInfo(videoURL);
-        console.log("META: ", info);
-        // TODO: send meta infos back to index.html
-        res.json({ info });
+        let result = await promiseInfo(videoURL);
+        res.send(result);
     } catch (err) {
         throw err;
     }
@@ -37,9 +45,6 @@ app.get("/download", async (req, res) => {
         format: "mp4",
     }).pipe(res);
 });
-app.get('/test', (req, res) => {
-    res.json({ info: "Test" });
-})
 
 const promiseInfo = (videoURL) => {
     return new Promise((resolve, reject) => {
@@ -49,3 +54,4 @@ const promiseInfo = (videoURL) => {
         });
     });
 }
+// // start the server
