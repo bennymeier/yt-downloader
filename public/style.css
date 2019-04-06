@@ -1,61 +1,13 @@
 * {
     text-align: center;
+    font-family: 'Quicksand', sans-serif;
 }
 
-.heading {
-    font-family: Arial;
-    margin-top: 40vh;
+p {
+    color: #6c757d;
 }
 
-.URL-input,
-.META-input,
-.convert-button,
-.meta-button {
-    font-size: 1.3em;
-    padding: 5px 10px;
-}
-
-.meta-button {
-    font-size: 1.3em;
-    padding: 5px 10px;
-}
-
-.URL-input {
-    border-radius: 4px 0px 0px 4px;
-    width: 30em;
-    text-align: left;
-    border: 2px solid #EEEEEE;
-    background: #EEEEEE;
-    outline: none;
-}
-
-.META-input {
-    border-radius: 4px 0px 0px 4px;
-    width: 30em;
-    text-align: left;
-    border: 2px solid #EEEEEE;
-    background: #EEEEEE;
-    outline: none;
-}
-
-.URL-input:focus {
-    border: 2px solid #0485ff;
-}
-
-.META-input:focus {
-    border: 2px solid #fdd939;
-}
-
-.convert-button {
-    border-radius: 0px 4px 4px 0px;
-    border: 2px solid #0485ff;
-    background: #0485ff;
-    color: white;
-}
-
-.meta-button {
-    border-radius: 0px 4px 4px 0px;
-    border: 2px solid #fdd939;
-    background: #fdd939;
-    color: white;
+#download-btn {
+    margin: 10px 0 10px 0;
+    width: 100%;
 }

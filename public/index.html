@@ -3,24 +3,52 @@
 
 <head>
     <title>YouTube Downloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>YouTube Downloader</h1>
-    <label for="download">Download</label>
-    <input class="URL-input" value="" name="download" type="text" placeholder="Video URL">
-    <button class="convert-button">Convert</button>
-    <br>
-    <br>
-    <label for="metainfo">Meta Info</label>
-    <input id="meta-input" class="META-input" value="" name="metainfo" type="text" placeholder="Get meta info">
-    <button class="meta-button">Get meta info</button>
+    <div class="container">
+        <h1>Download YouTube videos</h1>
+        <p>The best, free and most efficient YouTube downloader
+            on the market.</p>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="download-input" name="download" type="text" class="validate">
+                <label for="download-input">Video URL</label>
+            </div>
+        </div>
+        <label>
+            <input name="videoFormat" value="mp4" type="radio" checked />
+            <span>mp4</span>
+        </label>
+        <label>
+            <input name="videoFormat" value="mp3" type="radio" />
+            <span>mp3</span>
+        </label>
+        <label>
+            <input name="videoFormat" value="mov" type="radio" />
+            <span>mov</span>
+        </label>
+        <label>
+            <input name="videoFormat" value="flv" type="radio" />
+            <span>flv</span>
+        </label>
 
-    <p id="meta-title"></p>
-    <img id="meta-thumbnail">
-    <p id="meta-title"></p>
+        <div class="col s12">
+            <button id="download-btn" class="waves-effect waves-light btn-small"><i
+                    class="material-icons left">cloud</i>Download</button>
+        </div>
+        <p id="meta-title"></p>
+        <img id="meta-thumbnail">
+        <p id="meta-title"></p>
+    </div>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
