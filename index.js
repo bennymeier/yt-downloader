@@ -29,7 +29,6 @@ app.get("/download", async (req, res) => {
     let videoURL = req.query.URL;
     let videoFormat = req.query.FORMAT || "mp4";
     let info;
-    let title;
     try {
         info = await promiseInfo(videoURL)
             .catch((err) => {
@@ -39,7 +38,7 @@ app.get("/download", async (req, res) => {
         res.send(err.message).status(500);
         throw err;
     }
-    title = info.title.replace(/[^a-zA-Z0-9-äöü ]/g, " ");
+    const title = info.title.replace(/[^a-zA-Z0-9-äöü ]/g, " ");
     res.header('Content-disposition', 'attachment; filename=' + title + "." + videoFormat);
     ytdl(videoURL, {
         format: videoFormat,
