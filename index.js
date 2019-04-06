@@ -43,7 +43,17 @@ app.get("/download", async (req, res) => {
     res.header('Content-disposition', 'attachment; filename=' + title + "." + videoFormat);
     ytdl(videoURL, {
         format: videoFormat,
-    }).pipe(res);
+    })
+        .on("progress", (chunkLength, downloaded, total) => {
+            const download = (downloaded / 1024 / 1024).toFixed(2);
+            const tot = (total / 1024 / 1024).toFixed(2);
+            console.log(`${download}MB of ${tot}MB\n`);
+        })
+        .pipe(res)
+        .on("finish", () => {
+            // TODO: Clear URL input field
+            console.log("FINISHED!");
+        });
 });
 
 const promiseInfo = (videoURL) => {

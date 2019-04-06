@@ -3,6 +3,10 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+body {
+    background-color: #fff;
+}
+
 p {
     color: #6c757d;
 }
@@ -10,4 +14,11 @@ p {
 #download-btn {
     margin: 10px 0 10px 0;
     width: 100%;
+}
+
+
+#gradient {
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }

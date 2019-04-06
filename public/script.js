@@ -2,11 +2,13 @@ const convertBtn = document.getElementById("download-btn");
 convertBtn.addEventListener("click", () => {
     const videoURL = document.getElementById("download-input").value;
     const formatInfo = document.querySelector("input[name='videoFormat']:checked").value;
-    fetchMetaInfo(videoURL);
     const isValid = isValidYtUrl(videoURL);
     if (!isValid) {
+        const metaTitle = document.getElementById("meta-title");
+        metaTitle.innerText = "Video URL is not valid!";
         throw new Error("Invalid url!");
     }
+    fetchMetaInfo(videoURL);
     sendURL(videoURL, formatInfo);
 });
 const sendURL = (url, format) => {
@@ -32,10 +34,6 @@ const fetchMetaInfo = (videoURL) => {
         })
         .then((metainfo) => {
             const metaTitle = document.getElementById("meta-title");
-            if (metainfo.fail) {
-                metaTitle.innerText = "Video URL is not valid!";
-                return;
-            }
             metaTitle.innerHTML = metainfo.title;
             const metaThumbnail = document.getElementById("meta-thumbnail");
             metaThumbnail.src = metainfo.thumbnail_url;

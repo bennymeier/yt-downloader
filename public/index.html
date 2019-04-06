@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <h1>Download YouTube videos</h1>
+        <h2>Download YouTube videos</h2>
         <p>The best, free and most efficient YouTube downloader
             on the market.</p>
         <div class="row">
@@ -21,23 +21,28 @@
                 <input id="download-input" name="download" type="text" class="validate">
                 <label for="download-input">Video URL</label>
             </div>
+            <h5>Pick a format</h5>
         </div>
-        <label>
-            <input name="videoFormat" value="mp4" type="radio" checked />
-            <span>mp4</span>
-        </label>
-        <label>
-            <input name="videoFormat" value="mp3" type="radio" />
-            <span>mp3</span>
-        </label>
-        <label>
-            <input name="videoFormat" value="mov" type="radio" />
-            <span>mov</span>
-        </label>
-        <label>
-            <input name="videoFormat" value="flv" type="radio" />
-            <span>flv</span>
-        </label>
+        <div class="row">
+            <div class="col s12">
+                <label>
+                    <input name="videoFormat" value="mp4" type="radio" checked />
+                    <span>mp4</span>
+                </label>
+                <label>
+                    <input name="videoFormat" value="mp3" type="radio" />
+                    <span>mp3</span>
+                </label>
+                <label>
+                    <input name="videoFormat" value="mov" type="radio" />
+                    <span>mov</span>
+                </label>
+                <label>
+                    <input name="videoFormat" value="flv" type="radio" />
+                    <span>flv</span>
+                </label>
+            </div>
+        </div>
 
         <div class="col s12">
             <button id="download-btn" class="waves-effect waves-light btn-small"><i
@@ -47,8 +52,8 @@
         <img id="meta-thumbnail">
         <p id="meta-title"></p>
     </div>
-    <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
