@@ -11,10 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "ytdl-core": "^0.29.1"
+    "express": "^4.17.1",
+    "ytdl-core": "^0.29.5"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.19.1"
   }
 }
