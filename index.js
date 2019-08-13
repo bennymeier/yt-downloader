@@ -1,19 +1,19 @@
-const express = require('express');
-const cors = require('cors');
-const ytdl = require('ytdl-core');
+const express = require("express");
+const cors = require("cors");
+const ytdl = require("ytdl-core");
 const app = express();
 const port = process.env.PORT || 4000;
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 app.use(cors());
 app.use(express.json());
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 // serve the homepage
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
 });
 
 // get the meta info from youtube
-app.post('/metainfo', async (req, res) => {
+app.post("/metainfo", async (req, res) => {
     const videoURL = req.body.videoURL;
     if (!videoURL) throw new Error("No video url!");
     try {
