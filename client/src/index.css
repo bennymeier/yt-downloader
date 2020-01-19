@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f9f9f9;
+  background-color: #fff;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Quicksand", sans-serif !important;
+  margin: 0.7em 1em;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+.MuiCardMedia-media {
+  width: initial !important;
+}
+.MuiCard-root {
+  display: inline-block;
+  margin: 1em;
+}
+.MuiCardActionArea-root {
+  min-height: 220px;
+}
+.MuiCardActions-root {
+  justify-content: center;
+}
+.MuiTypography-h5 {
+  font-size: inherit !important;
+}
+.MuiCardMedia-img {
+  margin-left: auto;
+  margin-right: auto;
+}
