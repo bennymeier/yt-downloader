@@ -1,10 +1,15 @@
 body {
+  font-family: "Roboto", sans-serif;
   text-align: center;
-  font-family: "Quicksand", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f9f9f9;
+  margin: 0;
   background-color: #fff;
+  transition: color 1s ease, background-color 1s ease;
+}
+body.dark {
+  background-color: #222831;
+  color: #cfd8dc;
 }
 h1,
 h2,
@@ -13,6 +18,14 @@ h4,
 h5 {
   font-family: "Quicksand", sans-serif !important;
   margin: 0.7em 1em;
+}
+.btn-toggler {
+  position: fixed !important;
+  top: 10px;
+  right: 10px;
+}
+.mt {
+  margin-top: 50px;
 }
 .center {
   display: flex;
