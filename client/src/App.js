@@ -47,7 +47,6 @@ class App extends React.Component {
       isValid: false,
       relatedVideos: [],
       showNotification: true,
-      downloadProgress: 0
     };
   }
   getFormatFromStorage = () => {

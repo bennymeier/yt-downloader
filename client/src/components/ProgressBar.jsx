@@ -1,42 +1,55 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-const socket = io("http://localhost:3030");
+
+const socket = io(`${window.location.hostname}:3030`);
+let isSocketOpen = false;
+let downloadStopped = false;
+let alreadyActivated = false;
 
 const ProgressBar = () => {
-  const [isSocketOpen, setSocketOpen] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
+
   const wsOnOpen = () => {
     socket.on("connect", () => {
-      setSocketOpen(true);
+      isSocketOpen = true;
+      alreadyActivated = true;
     });
   };
+
   const wsOnClose = () => {
     socket.on("disconnect", () => {
-      setSocketOpen(false);
+      isSocketOpen = false;
     });
   };
+
   const wsOnMessage = () => {
+    // Download is still downloading
     socket.on("download", data => {
       const { download, total } = JSON.parse(data);
-      const progress = 100 - Math.ceil(Math.ceil(total) / Math.ceil(download));
-      if (downloadProgress !== progress) {
-        setDownloadProgress(progress);
-        console.log("downloadProgress ", downloadProgress);
-        console.log("progress ", progress);
-      }
+      setDownloadProgress(download);
     });
 
-    socket.on("event", () => {
-      console.log("event");
+    // Download was cancelled
+    socket.on("downloadClose", () => {
+      downloadStopped = true;
+      setDownloadProgress(0);
+    });
+
+    // Download is finished
+    socket.on("downloadEnd", () => {
+      setDownloadProgress(0);
     });
   };
+
   useEffect(() => {
-    wsOnOpen();
-    if (isSocketOpen) {
+    if (!alreadyActivated) {
+      wsOnOpen();
+      // if (isSocketOpen) {
       wsOnMessage();
+      // }
+      wsOnClose();
     }
-    wsOnClose();
-  });
+  }, []);
 
   return (
     <div className="header">

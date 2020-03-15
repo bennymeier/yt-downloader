@@ -63,17 +63,30 @@ app.get("/watch", async (req, res) => {
         const result = await ytdl.getBasicInfo(url);
         const { title } = result;
         res.setHeader('Content-disposition', contentDisposition(`${title}.${format}`));
-
+        let downloadProgress = 0;
         ytdl(url, { format })
             .on("progress", (chunkLength, downloaded, total) => {
                 const download = (downloaded / 1024 / 1024).toFixed(2);
                 const tot = (total / 1024 / 1024).toFixed(2);
-                console.log(`${download}MB of ${tot}MB\n`);
-                if (isSocketOpen) {
-                    io.emit("download", JSON.stringify({ download: download, total: tot }));
+                const progress = Math.ceil((download / tot) * 100);
+                // console.log(`${download}MB of ${tot}MB\n`);
+                if (isSocketOpen && progress !== downloadProgress) {
+                    downloadProgress = progress;
+                    console.log("progress ", progress);
+                    io.emit("download", JSON.stringify({ download: progress, total: tot }));
                 }
             })
-            .pipe(res);
+            .pipe(res)
+            .on("close", () => {
+                if (isSocketOpen) {
+                    io.emit("downloadClose", JSON.stringify({ close: true }));
+                }
+            })
+            .on("finish", () => {
+                if (isSocketOpen) {
+                    io.emit("downloadEnd", JSON.stringify({ end: true }));
+                }
+            });
     } catch (err) {
         console.log("error ", err);
         res.redirect(`http://${req.headers.host}?error=downloadError`);
