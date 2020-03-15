@@ -12,4 +12,4 @@ In the project directory, you can run:
 
 ### `yarn install`
 
-### `yarn start` for starting frontent
+### `yarn start` for starting frontend
