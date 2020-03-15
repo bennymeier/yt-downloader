@@ -143,6 +143,13 @@ braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
+browser-resolve@^1.11.3:
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/browser-resolve/-/browser-resolve-1.11.3.tgz#9b7cbb3d0f510e4cb86bdbd796124d28b5890af6"
+  integrity sha512-exDi1BYWB/6raKHmDTCicQfTkqwN5fioMFV4j8BsfMU4R2DK/QfZfK7kOVkmWCNANf0snkBzqGqAJBao9gZMdQ==
+  dependencies:
+    resolve "1.1.7"
+
 bytes@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
@@ -1009,6 +1016,11 @@ registry-url@^3.0.3:
   dependencies:
     rc "^1.0.1"
 
+resolve@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
+  integrity sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
+
 safe-buffer@5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
@@ -1339,6 +1351,13 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
   integrity sha1-AI4G2AlDIMNy28L47XagymyKxBk=
+
+youtube-api-v3-search@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/youtube-api-v3-search/-/youtube-api-v3-search-1.2.1.tgz#b7b2840d705026812c292ee40df4e9e6b558f662"
+  integrity sha512-CsH8oqX6wZ1b82Xdd4hddx3fSHEIaU85gdYGfQXNbaHOXq5GbaHs7Pro0mEnDt5WzQ5r0eI10gqGeM2mJolJDg==
+  dependencies:
+    browser-resolve "^1.11.3"
 
 ytdl-core@^2.0.0:
   version "2.0.0"

@@ -13,13 +13,13 @@ io.on("connection", () => {
 });
 
 io.on("disconnect", () => {
-    console.log("closed socket")
+    console.log("closed socket");
     isSocketOpen = false;
-})
+});
 
 io.listen(3030, () => {
-    console.log("Listening ... 🚀")
-})
+    console.log("Listening ... 🚀");
+});
 
 app.use(express.static(__dirname));
 app.use(cors());
@@ -50,7 +50,7 @@ app.get("/watch", async (req, res) => {
         }
     } catch (err) {
         console.log("error ", err);
-        res.redirect(`http://${req.headers.host}?error=wrongId`)
+        res.redirect(`http://${req.headers.host}?error=wrongId`);
     }
     const formats = ["mp4", "mp3", "mov", "flv"];
     let format = f;
@@ -68,16 +68,14 @@ app.get("/watch", async (req, res) => {
             .on("progress", (chunkLength, downloaded, total) => {
                 const download = (downloaded / 1024 / 1024).toFixed(2);
                 const tot = (total / 1024 / 1024).toFixed(2);
-                setTimeout(() => {
-                    console.log(`${download}MB of ${tot}MB\n`);
-                    if (isSocketOpen) {
-                        io.emit("download", JSON.stringify({ download: download, total: tot }));
-                    }
-                }, 700)
+                console.log(`${download}MB of ${tot}MB\n`);
+                if (isSocketOpen) {
+                    io.emit("download", JSON.stringify({ download: download, total: tot }));
+                }
             })
             .pipe(res);
     } catch (err) {
         console.log("error ", err);
-        res.redirect(`http://${req.headers.host}?error=downloadError`)
+        res.redirect(`http://${req.headers.host}?error=downloadError`);
     }
 });

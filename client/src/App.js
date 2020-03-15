@@ -6,8 +6,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import VideoCard from "./components/Card";
 import Toggler from "./components/Toggler";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import io from "socket.io-client";
-const socket = io("http://localhost:3030")
+import ProgressBar from "./components/ProgressBar";
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -49,52 +48,31 @@ class App extends React.Component {
       relatedVideos: [],
       showNotification: true,
       downloadProgress: 0
-    }
-  }
-  wsOnOpen = () => {
-    socket.on("connect", () => {
-      console.log("connect");
-    });
-  }
-  wsOnMessage = () => {
-    socket.on("download", data => {
-      const { download, total } = JSON.parse(data);
-      console.log("download ", download);
-      // this.setState({ downloadProgress: download }, () => console.log("download progress ", this.state.downloadProgress));
-      console.log("total ", total);
-    });
-    socket.on("event", () => {
-      console.log("event");
-    });
-  }
-  wsOnClose = () => {
-    socket.on("disconnect", () => {
-      console.log("disconnect");
-    });
+    };
   }
   getFormatFromStorage = () => {
     const format = localStorage.getItem("format") || "mp4";
     this.setState({ format });
-  }
+  };
   setFormatFromStorage = (format) => localStorage.setItem("format", format);
   getNotificationFromStorage = () => {
     const showNotification = localStorage.getItem("showNotification") || true;
     const show = showNotification === "false" ? false : true;
     this.setState({ showNotification: show });
-  }
+  };
   setNotificationFromStorage = (show) => localStorage.setItem("showNotification", `${show}`);
   isYouTubeUrl = (url) => {
     const ytRegex = new RegExp(/^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$/);
     return ytRegex.test(url);
-  }
+  };
   handleUrlChange = (event) => {
     const url = event.target.value;
     this.setState({ url, isValid: this.isYouTubeUrl(url) });
-  }
+  };
   handleFormatChange = (event) => {
     const format = event.target.value;
     this.setState({ format }, this.setFormatFromStorage(format));
-  }
+  };
   getVideoInfo = async () => {
     const { url } = this.state;
     try {
@@ -105,13 +83,13 @@ class App extends React.Component {
     } catch (error) {
       console.warn(error);
     }
-  }
+  };
   getThumbnail = (res) => {
     const { thumbnail } = res.player_response.videoDetails;
     const { thumbnails } = thumbnail;
     const { url = "" } = thumbnails[3] || thumbnails[0];
     return url;
-  }
+  };
   downloadVideo = () => {
     this.getVideoInfo();
     const { url, format } = this.state;
@@ -121,7 +99,7 @@ class App extends React.Component {
     this.setNotificationFromStorage(false);
     // const res = await API.get(`/download?watch=https://www.youtube.com/watch?v=_hbnMgHgZfs&format=mp4`);
     // const res = await API.post("/download", { url: "https://www.youtube.com/watch?v=_hbnMgHgZfs" });
-  }
+  };
   resetUrl = () => setTimeout(() => this.setState({ url: "", isValid: false }), 1000);
   addEnterEvent = () => document.addEventListener("keydown", this.enterEvent);
   removeEnterEvent = () => document.removeEventListener("keydown", this.enterEvent);
@@ -132,7 +110,7 @@ class App extends React.Component {
       this.downloadVideo();
       this.resetUrl();
     }
-  }
+  };
   getMode = () => {
     return localStorage.getItem("mode");
   };
@@ -150,22 +128,20 @@ class App extends React.Component {
   initialTheme = () => {
     const mode = this.getMode();
     this.setState({ mode }, this.writeCss(mode));
-  }
+  };
   componentDidMount = () => {
     this.addEnterEvent();
     this.getFormatFromStorage();
     this.getNotificationFromStorage();
     this.initialTheme();
-    this.wsOnOpen();
-    this.wsOnMessage();
-    this.wsOnClose();
-  }
+  };
 
   componentWillUnmount = () => this.removeEnterEvent();
   render() {
     const { format, url, showThumbnail, title, thumbnailSrc, isValid, relatedVideos, showNotification, mode } = this.state;
     return (
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
+        <ProgressBar />
         <Container>
           <Toggler onClick={this.changeTheme} mode={mode} />
           <div className="mt">
