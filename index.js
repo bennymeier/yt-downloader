@@ -1,21 +1,24 @@
 const express = require("express");
 const cors = require("cors");
 const ytdl = require("ytdl-core");
+const contentDisposition = require("content-disposition");
 const app = express();
 const port = process.env.PORT || 4000;
 const io = require("socket.io")();
-let isSocketOpened = false;
-io.on('connection', () => {
+let isSocketOpen = false;
+
+io.on("connection", () => {
     console.log("opened socket");
-    isSocketOpened = true;
+    isSocketOpen = true;
 });
+
 io.on("disconnect", () => {
     console.log("closed socket")
-    isSocketOpened = false;
+    isSocketOpen = false;
 })
-// Now make our new WS server listen to port 5000
+
 io.listen(3030, () => {
-    console.log('Listening ... 🚀 ')
+    console.log("Listening ... 🚀")
 })
 
 app.use(express.static(__dirname));
@@ -50,22 +53,23 @@ app.get("/watch", async (req, res) => {
     }
     try {
         const result = await ytdl.getBasicInfo(url);
-        const title = result.title.replace(/[^a-zA-Z0-9-äöü ]/g, " ");
-        res.header('Content-disposition', 'attachment; filename=' + title + "." + format);
+        const { title } = result;
+        res.setHeader('Content-disposition', contentDisposition(`${title}.${format}`));
+
         ytdl(url, { format })
             .on("progress", (chunkLength, downloaded, total) => {
                 const download = (downloaded / 1024 / 1024).toFixed(2);
                 const tot = (total / 1024 / 1024).toFixed(2);
-                console.log(`${download}MB of ${tot}MB\n`);
-                if (isSocketOpened) {
-                    io.emit("download", JSON.stringify({ download: download, total: tot }));
-                }
+                setTimeout(() => {
+                    console.log(`${download}MB of ${tot}MB\n`);
+                    if (isSocketOpen) {
+                        io.emit("download", JSON.stringify({ download: download, total: tot }));
+                    }
+                }, 700)
             })
-            .pipe(res)
-            .on("finish", () => {
-                console.log("FINISHED!");
-            });
+            .pipe(res);
     } catch (err) {
+        console.log("error ", err);
         res.redirect(`http://${req.headers.host}?error=1`)
     }
 });
