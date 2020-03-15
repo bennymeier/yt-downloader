@@ -44,6 +44,14 @@ app.post("/metainfo", async (req, res) => {
 
 app.get("/watch", async (req, res) => {
     const { v: url, format: f = "mp4" } = req.query;
+    try {
+        if (!ytdl.validateURL(url)) {
+            return;
+        }
+    } catch (err) {
+        console.log("error ", err);
+        res.redirect(`http://${req.headers.host}?error=wrongId`)
+    }
     const formats = ["mp4", "mp3", "mov", "flv"];
     let format = f;
     if (formats.includes(f)) {
@@ -70,6 +78,6 @@ app.get("/watch", async (req, res) => {
             .pipe(res);
     } catch (err) {
         console.log("error ", err);
-        res.redirect(`http://${req.headers.host}?error=1`)
+        res.redirect(`http://${req.headers.host}?error=downloadError`)
     }
 });
