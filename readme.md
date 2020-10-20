@@ -1,4 +1,5 @@
-# YouTube-Downloader | NodeJS & ExpressJS
+# DEPRECATED! Use my new YouTube Downloader: https://github.com/bennymeier/new-youtube-downloader
+## YouTube-Downloader | NodeJS & ExpressJS
 
 ## Available Scripts
 
